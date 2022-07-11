@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   
 root to: 'public/homes#top'
 get'about' => 'public/homes#about'
+get "search" => "searches#search"
+delete 'posts/:id' => 'public/posts#destroy', as: 'destroy_post'
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :customers,skip: [:passwords], controllers: {

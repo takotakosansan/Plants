@@ -1,3 +1,4 @@
+
 <h1>投稿一覧</h1>
 
 <div class="container">
@@ -5,8 +6,8 @@
    <% @posts.each do |posts| %>
    <div class="col-md-4">
       <%= link_to post_path(posts.id) do %>
+      <p><%= posts.name%></p>
       <% end %>
-       <p><%= posts.name%></p>
       <p><%= posts.description %></p>
      </div>
    <% end %>
