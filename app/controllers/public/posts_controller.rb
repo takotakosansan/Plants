@@ -9,7 +9,7 @@ class Public::PostsController < ApplicationController
     # 3. データをデータベースに保存するためのsaveメソッド実行
     post.save
     # 4. トップ画面へリダイレクト
-    redirect_to '/'
+    redirect_to '/posts'
   end
   
   def index
@@ -17,9 +17,16 @@ class Public::PostsController < ApplicationController
   end
   
   def show 
+    @post = Post.find(params[:id])  
   end
   
   def edit
+  end
+  
+  def destroy
+    post = Post.find(params[:id])  # データ（レコード）を1件取得
+    post.destroy  # データ（レコード）を削除
+    redirect_to '/posts'  # 投稿一覧画面へリダイレクト  
   end
   
    private
