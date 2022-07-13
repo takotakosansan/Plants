@@ -1,16 +1,8 @@
-
-<h1>投稿一覧</h1>
-
-<div class="container">
-   <div class="row">
-   <% @posts.each do |posts| %>
-   <div class="col-md-4">
-      <%= link_to post_path(posts.id) do %>
-      <p><%= posts.name%></p>
-      <% end %>
-      <p><%= posts.description %></p>
-     </div>
-   <% end %>
-
-   </div>
-  </div>
+<% @posts.each do |post| %>
+<div>
+  <%= image_tag post.get_image %>
+  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
+  <p>ショップ名：<%= post.name %></p>
+  <p>説明：<%= post.description %></p>
+</div>
+<% end %>
