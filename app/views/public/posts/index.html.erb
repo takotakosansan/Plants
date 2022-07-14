@@ -1,8 +1,10 @@
-<% @posts.each do |post| %>
+<% @posts.each do |posts| %>
 <div>
-  <%= image_tag post.get_image %>
-  <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
-  <p>ショップ名：<%= post.name %></p>
-  <p>説明：<%= post.description %></p>
+    <%= link_to post_path(posts.id) do %>
+      <%= image_tag posts.get_image %>
+    <% end %>
+    <p>ショップ名：<%= posts.name %></p>
+    <p>説明：<%= posts.description %></p>
+    <p><%= link_to "#{posts.post_comments.count} コメント", post_path(posts.id) %></p>
 </div>
 <% end %>
