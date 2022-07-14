@@ -1,4 +1,5 @@
 <div>
+   <%= image_tag @post.get_image %>
   <p>ショップ名：<%= @post.name %></p>
   <p>説明：<%= @post.description %></p>
   <p>投稿ユーザー画像：<%= image_tag @post.customer.get_profile_image(100,100) %></p>
