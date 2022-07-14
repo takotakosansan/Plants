@@ -1,10 +1,12 @@
+<div>
 <% @posts.each do |posts| %>
 <div>
     <%= link_to post_path(posts.id) do %>
-      <%= image_tag posts.get_image %>
+      <%= image_tag posts.get_image(100,100) %>
     <% end %>
     <p>ショップ名：<%= posts.name %></p>
     <p>説明：<%= posts.description %></p>
     <p><%= link_to "#{posts.post_comments.count} コメント", post_path(posts.id) %></p>
 </div>
 <% end %>
+</div>

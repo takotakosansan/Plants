@@ -1,6 +1,6 @@
 <!-- ユーザーの詳細 -->
 <div>
-  <h3><%= @customer.first_name %></h3>
+  <h3><%= @customer.last_name %></h3>
   <%= image_tag @customer.get_profile_image(100,100) %>
 </div>
 
@@ -8,12 +8,12 @@
 
 <% @posts.each do |post| %>
 <div>
-  <%= link_to post_path(post_image.id) do %>
-    <%= image_tag post.get_image %>
+  <%= link_to post_path(post.id) do %>
+    <%= image_tag post.get_image(100,100) %>
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag post.user.get_profile_image(100,100) %></p>
+  <p>投稿ユーザー画像：<%= image_tag post.customer.get_profile_image(100,100) %></p>
   <p>ショップ名：<%= post.name %></p>
   <p>説明：<%= post.description %></p>
-  <p>ユーザーネーム：<%= post.user.last_name %></p>
+  <p>ユーザーネーム：<%= post.customer.last_name %></p>
 </div>
 <% end %>

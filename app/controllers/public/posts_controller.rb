@@ -6,6 +6,7 @@ class Public::PostsController < ApplicationController
   def create
     # １.&2. データを受け取り新規登録するためのインスタンス作成
     post = Post.new(post_params)
+    post.customer_id = current_customer.id
     # 3. データをデータベースに保存するためのsaveメソッド実行
     post.save
     # 4. トップ画面へリダイレクト
