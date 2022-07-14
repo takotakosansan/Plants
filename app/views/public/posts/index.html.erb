@@ -1,16 +1,12 @@
-
-<h1>投稿一覧</h1>
-
-<div class="container">
-   <div class="row">
-   <% @posts.each do |posts| %>
-   <div class="col-md-4">
-      <%= link_to post_path(posts.id) do %>
-      <p><%= posts.name%></p>
-      <% end %>
-      <p><%= posts.description %></p>
-     </div>
-   <% end %>
-
-   </div>
-  </div>
+<div>
+<% @posts.each do |posts| %>
+<div>
+    <%= link_to post_path(posts.id) do %>
+      <%= image_tag posts.get_image(100,100) %>
+    <% end %>
+    <p>ショップ名：<%= posts.name %></p>
+    <p>説明：<%= posts.description %></p>
+    <p><%= link_to "#{posts.post_comments.count} コメント", post_path(posts.id) %></p>
+</div>
+<% end %>
+</div>

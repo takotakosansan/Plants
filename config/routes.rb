@@ -17,7 +17,10 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 scope module: :public do
-    resources :posts, only:[:new,:index,:show,:edit,:create]
+    resources :posts, only:[:new,:index,:show,:edit,:create] do
+    resources :post_comments, only: [:create]
+  end
+    resources :customers, only:[:show,:edit]
   end
   
 namespace :admin do

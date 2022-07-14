@@ -6,6 +6,7 @@ class Public::PostsController < ApplicationController
   def create
     # １.&2. データを受け取り新規登録するためのインスタンス作成
     post = Post.new(post_params)
+    post.customer_id = current_customer.id
     # 3. データをデータベースに保存するためのsaveメソッド実行
     post.save
     # 4. トップ画面へリダイレクト
@@ -17,7 +18,8 @@ class Public::PostsController < ApplicationController
   end
   
   def show 
-    @post = Post.find(params[:id])  
+    @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
   
   def edit
@@ -32,6 +34,6 @@ class Public::PostsController < ApplicationController
    private
   # ストロングパラメータ
   def post_params
-    params.require(:post).permit(:name, :description )
+    params.require(:post).permit(:name, :description, :image)
   end
 end
