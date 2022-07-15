@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  get 'relationships/followings'
+  get 'relationships/followers'
 root to: 'public/homes#top'
 get'about' => 'public/homes#about'
 get "search" => "searches#search"
@@ -18,11 +20,20 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 }
 scope module: :public do
     resources :posts, only:[:new,:index,:show,:edit,:create] do
-    resources :post_comments, only: [:create]
+    resource :favorites, only: [:create, :destroy]
+    
+    resources :post_comments, only: [:create, :destroy]
   end
-    resources :customers, only:[:show,:edit]
+    resources :customers, only:[:show,:edit] do
+      resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+       member do
+      get :favorites
+    end
   end
-  
+  end
+
 namespace :admin do
     root :to => 'homes#top'
     resources :posts, only:[:index, :new, :create, :show, :edit, :update]
