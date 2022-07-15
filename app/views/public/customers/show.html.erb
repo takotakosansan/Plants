@@ -1,6 +1,7 @@
 <!-- ユーザーの詳細 -->
-<div>
   <h3><%= @customer.last_name %></h3>
+  
+<div>
   <%= image_tag @customer.get_profile_image(100,100) %>
 </div>
 
@@ -12,7 +13,7 @@
     <%= image_tag post.get_image(100,100) %>
   <% end %>
   <p>投稿ユーザー画像：<%= image_tag post.customer.get_profile_image(100,100) %></p>
-  <p>ショップ名：<%= post.name %></p>
+  <p>タイトル：<%= post.name %></p>
   <p>説明：<%= post.description %></p>
   <p>ユーザーネーム：<%= post.customer.last_name %></p>
 </div>

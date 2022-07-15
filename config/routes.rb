@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
 root to: 'public/homes#top'
 get'about' => 'public/homes#about'
 get "search" => "searches#search"
@@ -18,11 +18,13 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 }
 scope module: :public do
     resources :posts, only:[:new,:index,:show,:edit,:create] do
+    resource :favorites, only: [:create, :destroy]
+    
     resources :post_comments, only: [:create, :destroy]
   end
     resources :customers, only:[:show,:edit]
   end
-  
+
 namespace :admin do
     root :to => 'homes#top'
     resources :posts, only:[:index, :new, :create, :show, :edit, :update]
