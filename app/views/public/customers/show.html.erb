@@ -4,6 +4,11 @@
 <div>
   <%= image_tag @customer.get_profile_image(100,100) %>
 </div>
+<p><%=link_to"フォロー一覧",customer_followings_path(@customer) %></p>
+<p><%=link_to"フォロワー一覧",customer_followers_path(@customer) %></p>
+
+<p><%=link_to"お気に入り記事",favorites_customer_path(@customer) %></p>
+<p><%= render "public/relationships/btn_follow" %></p>
 
 <!-- ユーザーの投稿一覧 -->
 
