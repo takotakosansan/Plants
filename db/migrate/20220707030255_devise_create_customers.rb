@@ -32,13 +32,7 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
       # 名前、郵便番号、住所、電話番号、退会情報を追加するカラム
-      t.string :last_name,              null: false, default: ""
-      t.string :first_name,              null: false, default: ""
-      t.string :last_name_kana,              null: false, default: ""
-      t.string :first_name_kana,              null: false, default: ""
-      t.string :postal_code,              null: false, default: ""
-      t.string :address,              null: false, default: ""
-      t.string :phone_number,              null: false, default: ""
+      t.string :name,              null: false, default: ""
       t.boolean :status,              null: false, default: "t"
 
 
