@@ -1,25 +1,20 @@
-<!-- ユーザーの詳細 -->
-  <h3><%= @customer.name %></h3><br>
+<div class="container">
+  <div class="row">
+   <div class="col-4">
+  <!-- ユーザーの詳細 -->
+<h3><%= @customer.name %></h3><br>
   
 <div>
-  <%= image_tag @customer.get_profile_image(100,100) %>
+  <%= image_tag @customer.get_profile_image(200,200) %>
 </div>
-<p><%=link_to"フォロー一覧",customer_followings_path(@customer) %></p>
-<p><%=link_to"フォロワー一覧",customer_followers_path(@customer) %></p>
-
+<p><%= link_to "プロフィール編集", edit_customer_path %></p>
+<p><%=link_to"フォロー一覧",customer_followings_path(@customer), class: 'btn btn-success' %>
+<%=link_to"フォロワー一覧",customer_followers_path(@customer), class: 'btn btn-primary' %></p>
 <p><%=link_to"お気に入り記事",favorites_customer_path(@customer) %></p>
 <p><%= render "public/relationships/btn_follow" %></p>
-
-<!-- ユーザーの投稿一覧 -->
-
-<% @posts.each do |post| %>
-<div>
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image(100,100) %>
-  <% end %>
-  <p>投稿ユーザー画像：<%= image_tag post.customer.get_profile_image(100,100) %></p>
-  <p>タイトル：<%= post.name %></p>
-  <p>説明：<%= post.description %></p>
-  <p>ユーザーネーム：<%= post.customer.name %></p>
 </div>
-<% end %>
+   <div class="col-8">
+<!-- ユーザーの投稿一覧 -->
+<p><%= render "public/posts/post" %></p>
+</div>
+</div>
