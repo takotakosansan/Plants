@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
-   <div class="col-4">
+   <div class="col-4 mt-4">
   <!-- ユーザーの詳細 -->
-<h3><%= @customer.name %></h3><br>
+<h3><%= @customer.name %></h3>
+<td>フォロー数: <%= @customer.followings.count %></td>
+<td>フォロワー数: <%= @customer.followers.count %></td>
+<br>
   
 <div>
   <%= image_tag @customer.get_profile_image(200,200) %>
 </div>
-<p><%= link_to "プロフィール編集", edit_customer_path %></p>
+<p class = mt-4><%= link_to "プロフィール編集", edit_customer_path %></p>
 <p><%=link_to"フォロー一覧",customer_followings_path(@customer), class: 'btn btn-success' %>
 <%=link_to"フォロワー一覧",customer_followers_path(@customer), class: 'btn btn-primary' %></p>
 <p><%=link_to"お気に入り記事",favorites_customer_path(@customer) %></p>

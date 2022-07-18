@@ -11,10 +11,12 @@
   </head>
 
    <body class="d-flex flex-column vh-100">
-    <header class="shadow-sm">
+    <header class="bg-dark shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png.jpg', size: "150x100") %></a>
+          <a class="navbar-brand p-3" href="/">
+            <%= image_tag('logo.png.jpg', size: "150x100") %>
+          </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,14 +34,17 @@
               <%= link_to 'マイページ', customer_path(current_customer.id), class: 'btn btn-primary' %>
             </li>
             <li class="nav-item mx-sm-1">
+              <%= link_to '会員一覧', customers_path, class: 'btn btn-warning' %>
+            </li>
+            <li class="nav-item mx-sm-1">
              <%= render "layouts/search" %>
             </li>
             <% else %>
-            <li class="nav-item">
-              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link bi text-dark' %>
+            <li class="nav-item mx-sm-1">
+              <%= link_to "新規登録", new_customer_registration_path, class: 'btn btn-warning' %>
             </li>
-            <li class="nav-item">
-              <%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-dark' %>
+            <li class="nav-item mx-sm-1">
+              <%= link_to "ログイン", new_customer_session_path, class: 'btn btn-danger' %>
             </li>
             <% end %>
             </ul>

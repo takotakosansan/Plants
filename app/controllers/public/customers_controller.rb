@@ -8,6 +8,9 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
   end
   
+  def index
+  @customer = Customer.all
+  end
   def update
     @customer = Customer.find(params[:id])
     @customer.update(customer_params)
