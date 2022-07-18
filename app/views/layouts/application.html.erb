@@ -14,7 +14,7 @@
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png.jpg') %></a>
+          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png.jpg', size: "150x100") %></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,18 +22,21 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if customer_signed_in? %>
-            <li class="nav-item">
-              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %>
+            <li class="nav-item mx-sm-1">
+              <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'btn btn-danger' %>
             </li>
-            <li class="nav-item">
-              <%= link_to '投稿フォーム', new_post_path, class: 'nav-link text-dark' %>
+            <li class="nav-item mx-sm-1">
+              <%= link_to '投稿フォーム', new_post_path, class: 'btn btn-success' %>
             </li>
-            <li class="nav-item">
-              <%= link_to 'マイページ', customer_path(current_customer.id), class: 'nav-link text-dark' %>
+            <li class="nav-item mx-sm-1">
+              <%= link_to 'マイページ', customer_path(current_customer.id), class: 'btn btn-primary' %>
+            </li>
+            <li class="nav-item mx-sm-1">
+             <%= render "layouts/search" %>
             </li>
             <% else %>
             <li class="nav-item">
-              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link text-dark' %>
+              <%= link_to "新規登録", new_customer_registration_path, class: 'nav-link bi text-dark' %>
             </li>
             <li class="nav-item">
               <%= link_to "ログイン", new_customer_session_path, class: 'nav-link text-dark' %>
@@ -51,16 +54,13 @@
       <div class="container">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <p>善良な市民同士で無差別に食欲を煽るSNS</p>
+            <p>植物を通して皆と繋がるSNS</p>
           </div>
           <div class="col-md-8">
             <h6 class="text-white mt-2 mb-3">Link</h6>
             <ul class="p-0 list-unstyled">
               <li>
-                <a href="" title="About" class="text-white-50">会社概要</a>
-              </li>
-              <li>
-                <a href="" title="License informations" class="text-white-50">プライバシーポリシー</a>
+                <a href="" title="About" class="text-white-50">このサイトについて</a>
               </li>
             </ul>
           </div>
