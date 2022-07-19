@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'relationships/followings'
   get 'relationships/followers'
+  post '/homes/guest_sign_in', to: 'public/homes#new_guest'
 root to: 'public/homes#top'
 get'about' => 'public/homes#about'
 get "search" => "searches#search"
