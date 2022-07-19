@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'relationships/followings'
   get 'relationships/followers'
+  post '/homes/guest_sign_in', to: 'public/homes#new_guest'
 root to: 'public/homes#top'
 get'about' => 'public/homes#about'
 get "search" => "searches#search"
@@ -24,7 +25,7 @@ scope module: :public do
     
     resources :post_comments, only: [:create, :destroy]
   end
-    resources :customers, only:[:show, :edit, :update] do
+    resources :customers, only:[:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
