@@ -1,13 +1,39 @@
-<div>
-<% @posts.each do |posts| %>
-<div>
-    <%= link_to post_path(posts.id) do %>
-      <%= image_tag posts.get_image(100,100) %>
+ <div class =container>
+    <%= form_tag posts_path, method: :get, class: 'boards__searchForm mt-3' do %>
+      <%= select_tag :tag_id,
+                     options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                     {
+                       prompt: 'タグで絞り込み検索',
+                       onchange: 'submit(this.form);'
+                     }
+      %>
     <% end %>
-    <p>投稿者：<%= posts.customer.name %></p>
-    <p>タイトル：<%= posts.name %></p>
-    <p>説明：<%= posts.description %></p>
-    <p><%= link_to "#{posts.post_comments.count} コメント", post_path(posts.id) %></p>
-</div>
-<% end %>
+  <table class="table">
+  <thred>
+   <tr>
+   <th>投稿画像</th>
+   <th>投稿者</th>
+   <th>タイトル</th>
+   <th>説明</th>
+   <th>タグ</th>
+   <th></th>
+   </tr>
+   </thred>
+<tbody>
+<% @posts.each do |post| %>
+   <tr>
+    <td><%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image(100,100) %></td>
+    <% end %>
+    <td>投稿者：<%= post.customer.name %></td>
+    <td>タイトル：<%= post.name %></td>
+    <td>説明：<%= post.description %></td>
+    <td><% post.tags.each do |tag| %>
+        <%= tag.name %>
+        <% end %></td>
+    <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
+   </tr>
+   <% end %>
+   </tbody>
+  </table>
 </div>

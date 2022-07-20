@@ -14,7 +14,7 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = Post.all
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
   end
   
   def show 
@@ -34,6 +34,6 @@ class Public::PostsController < ApplicationController
    private
   # ストロングパラメータ
   def post_params
-    params.require(:post).permit(:name, :description, :image)
+    params.require(:post).permit(:name, :description, :image, tag_ids: [])
   end
 end

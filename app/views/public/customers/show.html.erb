@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-   <div class="col-4 mt-4">
+  <div class="row no-gutters">
+   <div class="col-4 rounded mt-4">
   <!-- ユーザーの詳細 -->
 <h3><%= @customer.name %></h3>
 <td>フォロー数: <%= @customer.followings.count %></td>
@@ -17,7 +17,7 @@
 <p><%= render "public/relationships/btn_follow" %></p>
 </div>
    <div class="col-8">
-<!-- ユーザーの投稿一覧 -->
-<p><%= render "public/posts/post" %></p>
-</div>
+   <!-- ユーザーの投稿一覧 -->
+   <p><%= render "public/posts/post" %></p>
+   </div>
 </div>

@@ -1,9 +1,14 @@
-<div>
+<div class="container">
+  <div class="row">
+    <div class="col-6 rounded mt-4">
    <%= image_tag @post.get_image(100,100) %>
   <p>ショップ名：<%= @post.name %></p>
   <p>説明：<%= @post.description %></p>
   <p>投稿ユーザー画像：<%= image_tag @post.customer.get_profile_image(100,100) %></p>
   <p>ユーザーネーム：<%= @post.customer.name %></p>
+  <p>タグ:<% @post.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %></p>
   <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
   <% if @post.customer == current_customer %>
     <%= link_to "削除", post_path(@post), method: :delete %>
@@ -21,26 +26,37 @@
       <% end %>
     </p>
   <% end %>
-
-  
-</div>
-
-<div>
-  
+  </div>
+  <div class="col-6 rounded mt-4">
   <p>コメント件数：<%= @post.post_comments.count %></p>
+  <table class="table">
+  <thred>
+   <tr>
+   <th>アイコン</th>
+   <th>投稿者</th>
+   <th>投稿日</th>
+   <th>コメント</th>
+   <th></th>
+   </tr>
+   </thred>
+<tbody>
   <% @post.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.customer.get_profile_image(100,100) %></p>
-    <%= post_comment.customer.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-    <% if post_comment.customer == current_customer %>
-      <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %>
+  <tr>
+    <td><%= image_tag post_comment.customer.get_profile_image(50,50) %></td>
+    <td><%= post_comment.customer.name %></td>
+    <td><%= post_comment.created_at.strftime('%Y/%m/%d') %></td>
+    <td><%= post_comment.comment %></td>
+    <td><% if post_comment.customer == current_customer %></td>
+    <td><%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete %><td>
     <% end %>
-    
+  </tr>
     <% end %>
-</div>
-<div>
+    </tbody>
+  </table>
   <%= form_with model: [@post, @post_comment] do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
+   </div>
+  </div>
 </div>
