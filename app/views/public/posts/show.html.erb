@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-6 rounded mt-4">
    <%= image_tag @post.get_image(100,100) %>
-  <p>ショップ名：<%= @post.name %></p>
+  <p>タイトル：<%= @post.name %></p>
   <p>説明：<%= @post.description %></p>
   <p>投稿ユーザー画像：<%= image_tag @post.customer.get_profile_image(100,100) %></p>
-  <p>ユーザーネーム：<%= @post.customer.name %></p>
+  <p>名前：<%= @post.customer.name %></p>
   <p>タグ:<% @post.tags.each do |tag| %>
     <%= tag.name %>
   <% end %></p>
