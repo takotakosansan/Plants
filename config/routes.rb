@@ -36,7 +36,7 @@ scope module: :public do
   end
 
 namespace :admin do
-    root :to => 'homes#top'
+    root :to => 'customers#index'
     resources :posts, only:[:index, :new, :create, :show, :edit, :update]
     resources :customers, only:[:index, :show, :update, :edit]
   end

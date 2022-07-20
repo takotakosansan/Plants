@@ -1,0 +1,30 @@
+<h4><%= @customername %>さんの会員情報編集</h4>
+
+<%= form_with model: @customer, url: admin_customer_path(@customer.id), class: "w-100" do |f| %>
+<table>
+  <tr>
+    <td>会員ID</td>
+    <td><%= @customer.id %></td>
+  </tr>
+  <tr>
+    <td>氏名</td>
+    <td><%= f.text_field :name %></td>
+  </tr>
+  <tr>
+    <td>メールアドレス</td>
+    <td><%= f.text_field :email %></td>
+  </tr>
+  <tr>
+    <td>会員ステータス</td>
+    <td>
+      <%= f.radio_button :status, :true %>
+      <%= f.label :status, "有効", value: true %>
+      <%= f.radio_button :status, :false %>
+      <%= f.label :status, "退会", value: false %>
+    </td>
+  </tr>
+  <tr>
+    <td><%= f.submit "変更を保存" %></td>
+  </tr>
+</table>
+<% end %>
