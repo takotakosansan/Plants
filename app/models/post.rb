@@ -7,6 +7,9 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_one_attached :image
   
+  validates :name, presence: true
+  validates :description, presence: true
+  
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
   end

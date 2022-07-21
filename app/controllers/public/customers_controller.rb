@@ -13,8 +13,12 @@ class Public::CustomersController < ApplicationController
   end
   def update
     @customer = Customer.find(params[:id])
-    @customer.update(customer_params)
-    redirect_to customer_path(current_customer.id)
+    @posts = @customer.posts  
+    if @customer.update(customer_params)
+     redirect_to customer_path(current_customer.id)
+    else
+     render :edit
+    end
   end
   
   def favorites

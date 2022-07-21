@@ -13,9 +13,9 @@
             <% end %>
           </ul>
         <% end %>
-<!-- form_with部分 -->
-<%= form_with model: @post do |f| %>
-<h4>画像</h4>
+      <!-- form_with部分 -->
+      <%= form_with model: @post do |f| %>
+      <h4>画像</h4>
       <%= f.file_field :image, accept: "image/*", class: "w-100"  %>
        <div class="input-group mb-3 mt-4">
        <div class="input-group-prepend">
@@ -38,4 +38,7 @@
        </div>
        <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
        <% end %>
-     
+     </div>
+    </div>
+  </div>
+</div>
