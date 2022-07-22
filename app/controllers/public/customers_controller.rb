@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!
   def show
     @customer = Customer.find(params[:id])
     @posts = @customer.posts      
@@ -9,12 +10,16 @@ class Public::CustomersController < ApplicationController
   end
   
   def index
-  @customer = Customer.all
+  @customer = Customer.page(params[:page])
   end
   def update
     @customer = Customer.find(params[:id])
-    @customer.update(customer_params)
-    redirect_to customer_path(current_customer.id)
+    @posts = @customer.posts  
+    if @customer.update(customer_params)
+     redirect_to customer_path(current_customer.id)
+    else
+     render :edit
+    end
   end
   
   def favorites

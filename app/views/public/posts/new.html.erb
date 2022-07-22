@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row no-gutters">
     <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
-<h5 class="text-dark bg-light p-4 mb-0">新規投稿</h5>
-<div class="form-body p-4">
+     <h5 class="text-dark bg-light p-4 mb-0">新規投稿</h5>
+      <div class="form-body p-4">
         <% if @post.errors.any? %>
           <ul class="alert alert-danger" role="alert">
             <h6 class="alert-heading">
@@ -13,9 +13,9 @@
             <% end %>
           </ul>
         <% end %>
-<!-- form_with部分 -->
-<%= form_with model: @post do |f| %>
-<h4>画像</h4>
+      <!-- form_with部分 -->
+      <%= form_with model: @post do |f| %>
+      <h4>画像</h4>
       <%= f.file_field :image, accept: "image/*", class: "w-100"  %>
        <div class="input-group mb-3 mt-4">
        <div class="input-group-prepend">
@@ -25,6 +25,20 @@
        </div> 
        <%= f.text_area :description, class:"form-control", rows:"3", placeholder:"説明文ここに" %>
 	     <hr>
+	     <div class="check_box">
+       <span>タグ</span>
+       <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+       <div>
+       <%= tag.label do %>
+       <%= tag.check_box %>
+       <%= tag.text %>
+       <% end %>
+       </div>
+       <% end %>
+       </div>
        <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
        <% end %>
-     
+     </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,7 @@
-<h4><%= @customer.name %>さんの会員詳細</h4>
-
+<div class="container mt-5">
+  <h4><%= @customer.name %>さんの会員詳細</h4>
+  <div class="row no-gutters">
+    <div class="col-6 rounded mt-4">
 <table>
   <tr>
     <td>会員ID</td>
@@ -22,5 +24,9 @@
       <% end %>
   </tr>
 </table>
-
-<%= link_to "編集する", edit_admin_customer_path(@customer.id) %>
+</div>
+<div class="col-6 rounded mt-4">
+<%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-success'%>
+</div>
+</div>
+</div>

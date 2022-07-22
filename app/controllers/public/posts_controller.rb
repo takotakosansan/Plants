@@ -1,25 +1,31 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_customer!
   def new
     @post = Post.new
   end
   
   def create
     # １.&2. データを受け取り新規登録するためのインスタンス作成
-    post = Post.new(post_params)
-    post.customer_id = current_customer.id
+    @post = Post.new(post_params)
+    @post.customer_id = current_customer.id
     # 3. データをデータベースに保存するためのsaveメソッド実行
-    post.save
+    if @post.save
     # 4. トップ画面へリダイレクト
-    redirect_to '/posts'
+    redirect_to posts_path
+    else
+    render :new
+    end
   end
   
   def index
-    @posts = Post.all
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.page(params[:page])
   end
   
   def show 
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    comment = current_customer.post_comments.new
+    @error_comment = comment
   end
   
   def edit
@@ -34,6 +40,6 @@ class Public::PostsController < ApplicationController
    private
   # ストロングパラメータ
   def post_params
-    params.require(:post).permit(:name, :description, :image)
+    params.require(:post).permit(:name, :description, :image, tag_ids: [])
   end
 end

@@ -1,18 +1,22 @@
+<div class =container>
 <% if @customers.exists? %>
   <% @customers.each do |customer| %>
-    <table>
+    <table class="table">
       <thead>
         <tr>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th>アイコン</th>
+          <th>名前</th>
+          <th>フォロー数</th>
+          <th>フォロワー数</th>
         </tr>
       </thead>
       <tbody>
         <tr>
+          <td><%= link_to customer_path(customer.id) do %>
+            <%= image_tag customer.get_profile_image(80,80)%><% end %></td>
           <td><%= customer.name %></td>
-          <td>フォロー数: <%= customer.followings.count %></td>
-          <td>フォロワー数: <%= customer.followers.count %></td>
+          <td><%= customer.followings.count %></td>
+          <td><%= customer.followers.count %></td>
         </tr>
       </tbody>
     </table>
@@ -20,3 +24,4 @@
 <% else %>
   <p>ユーザーはいません</p>
 <% end %>
+</div>
