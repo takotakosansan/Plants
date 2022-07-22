@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+  before_action :authenticate_customer!
   def show
     @customer = Customer.find(params[:id])
     @posts = @customer.posts      
@@ -9,7 +10,7 @@ class Public::CustomersController < ApplicationController
   end
   
   def index
-  @customer = Customer.all
+  @customer = Customer.page(params[:page])
   end
   def update
     @customer = Customer.find(params[:id])

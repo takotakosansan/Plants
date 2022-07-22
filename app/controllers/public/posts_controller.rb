@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_customer!
   def new
     @post = Post.new
   end
@@ -17,12 +18,14 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
+    @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.page(params[:page])
   end
   
   def show 
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    comment = current_customer.post_comments.new
+    @error_comment = comment
   end
   
   def edit

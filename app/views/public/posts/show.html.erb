@@ -1,35 +1,55 @@
 <div class="container">
-  <div class="row">
-    <div class="col-6 rounded mt-4">
-      <%= image_tag @post.get_image(100,100) %>
-      <p>タイトル：<%= @post.name %></p>
-      <p>説明：<%= @post.description %></p>
-      <p>投稿ユーザー画像：<%= image_tag @post.customer.get_profile_image(100,100) %></p>
-      <p>名前：<%= @post.customer.name %></p>
-      <p>
+  <div class="row no-gutters">
+    <div class="col-4 rounded mt-4">
+      <table class = 'table table-hover table-bordered caption-top'>
+        <caption>投稿情報</caption>
+      <tr>
+       <th><%= image_tag @post.get_image(100,100) %></th>
+      </tr>
+      <tr>
+       <th>タイトル：<%= @post.name %></th>
+      </tr>
+      <tr>
+       <th>説明：<%= @post.description %></th>
+      </tr>
+      <tr>
+       <th>投稿ユーザー画像：<%= image_tag @post.customer.get_profile_image(100,100) %></th>
+      </tr>
+      <tr>
+       <th>投稿者：<%= @post.customer.name %></th>
+      </tr>
+      <tr>
+       <th>
         タグ:<% @post.tags.each do |tag| %>
               <%= tag.name %>
             <% end %>
-      </p>
-      <p>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></p>
+       </th>
+      </tr>
+      <tr>
+      <th>投稿日時：<%= @post.created_at.strftime('%Y/%m/%d') %></th>
+      </tr>
       <% if @post.customer == current_customer %>
-        <%= link_to "削除", post_path(@post), method: :delete %>
-      <% end %>
+      <tr>
+       <th><%= link_to "削除", post_path(@post), method: :delete %>
+            <% end %></th>
+      </tr>
       <% if @post.favorited_by?(current_customer) %>
-        <p>
-          <%= link_to post_favorites_path(@post), method: :delete do %>
-            ♥<%= @post.favorites.count %> いいね
-          <% end %>
-        </p>
-        <% else %>
-        <p>
-          <%= link_to post_favorites_path(@post), method: :post do %>
+      <tr>
+       <th><%= link_to post_favorites_path(@post), method: :delete do %>
+              ♥<%= @post.favorites.count %> いいね
+              <% end %></th>
+      </tr>
+      <% else %>
+      <tr>
+       <th><%= link_to post_favorites_path(@post), method: :post do %>
             ♡<%= @post.favorites.count %> いいね
-          <% end %>
-        </p>
+            <% end %></th>
+      </tr>
       <% end %>
+      </table>
     </div>
-
+    <div class="col-2 rounded mt-4">
+    </div>
     <div class="col-6 rounded mt-4">
       <p>コメント件数：<%= @post.post_comments.count %></p>
       <table class="table">
@@ -56,21 +76,7 @@
           <% end %>
         </tbody>
       </table>
-      <%#= binding.pry %>
-      <% if @error_comment.errors.any? %>
-        <h6 class="alert-heading">
-          <%= @error_comment.errors.count %>件のエラーが発生しました
-        </h6>
-        <ul class="alert alert-danger" role="alert">
-          <% @error_comment.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <%= form_with model: [@post, @post_comment] do |f| %>
-        <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-        <%= f.submit "送信する" %>
-      <% end %>
+     <%= render "public/post_comments/post_comment" %>
    </div>
   </div>
 </div>

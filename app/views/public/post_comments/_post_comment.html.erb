@@ -1,0 +1,15 @@
+<%#= binding.pry %>
+<% if @error_comment.errors.any? %>
+  <h6 class="alert-heading">
+    <%= @error_comment.errors.count %>件のエラーが発生しました
+  </h6>
+  <ul class="alert alert-danger" role="alert">
+    <% @error_comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_with model: [@post, @post_comment] do |f| %>
+  <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+  <%= f.submit "送信する" %>
+<% end %>
