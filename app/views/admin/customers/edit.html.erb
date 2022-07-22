@@ -1,4 +1,12 @@
 <div class="container">
+   <% if @customer.errors.any? %>
+  <h4><%= @customer.errors.count %>件のエラーが発生しました</h4>
+  <ul>
+    <% @customer.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+    <% end %>
   <div class="row no-gutters">
     <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto text-center shadow-lg rounded px-0 my-5">
       <h5 class="text-dark bg-light py-4 mb-0"><%= @customer.name %>さんの会員情報編集</h5>
