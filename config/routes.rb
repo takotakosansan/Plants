@@ -20,7 +20,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 scope module: :public do
-    resources :posts, only:[:new,:index,:show,:edit,:create] do
+    resources :posts, only:[:new, :index, :show, :edit, :create, :update] do
     resource :favorites, only: [:create, :destroy]
     
     resources :post_comments, only: [:create, :destroy]
