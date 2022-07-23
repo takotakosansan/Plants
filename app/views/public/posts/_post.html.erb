@@ -2,6 +2,7 @@
   <% @posts.each_with_index.reverse_each do |post, i| %>
    <% if post.has_attribute?(:customer_id)  %>
     <% if post.customer_id.present? %>
+      <% unless post.customer_id != current_customer.id && post.status_public? %>
   <div class="card w-20 h-40 mx-2 mt-4 shadow-lg" style="width: 18rem;">
     <%= link_to post_path(post.id) do %>
       <%= image_tag post.get_image(100,100), class:"card-img-top"; %>
@@ -38,6 +39,7 @@
       </div>
     </div>
   </div>
+     <% end %>
     <% end %>
    <% end %>
   <% end %>
