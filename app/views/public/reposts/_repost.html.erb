@@ -1,0 +1,21 @@
+<% if customer_signed_in? %>
+  <% unless post.customer&.id == current_customer.id %>
+    <% if current_customer.reposted?(post.id) %>
+      <%= link_to "/posts/#{post.id}/reposts/#{post.reposts.ids}", method: :delete, title: "リポストを取り消す", remote: true do %>
+        <i class="fas fa-retweet post-action__repost--reposted"></i>
+        <%= post.reposts.length %>
+      <% end %>
+    <% else %>
+      <%= link_to "/posts/#{post.id}/reposts", method: :post, title: "リポストする", data: {confirm: "この投稿をリポストしますか？"}, remote: true do %>
+        <i class="fas fa-retweet"></i>
+      <% end %>
+      <%= post.reposts.length %>
+    <% end %>
+  <% else %>
+    <i class="fas fa-retweet nonactive"></i>
+    <%= post.reposts.length %>
+  <% end %>
+<% else %>
+  <i class="fas fa-retweet nonactive"></i>
+  <%= post.reposts.length %>
+<% end %>
