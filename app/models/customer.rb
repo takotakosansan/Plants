@@ -16,6 +16,7 @@ class Customer < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
   
+  has_many :reposts, dependent: :destroy
   has_one_attached :profile_image
   
   validates :email, presence: true
@@ -44,6 +45,20 @@ class Customer < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
+  def reposted?(post_id)
+    self.reposts.where(post_id: post_id).exists?
+  end
+  
+  def posts_with_reposts
+  relation = Post.joins("LEFT OUTER JOIN reposts ON posts.id = reposts.post_id AND reposts.customer_id = #{self.id}")
+                 .select("posts.*, reposts.customer_id, (SELECT name FROM customers WHERE id = reposts.customer_id) AS repost_customer_name")
+  relation.where(customer_id: self.id)
+          .or(relation.where("reposts.customer_id = ?", self.id))
+          .with_attached_image
+          .preload(:customer, :post_comments, :favorites, :reposts)
+          .order(Arel.sql("CASE WHEN reposts.created_at IS NULL THEN posts.created_at ELSE reposts.created_at END"))
+  end
+    
   # フォローしたときの処理
 def follow(customer_id)
   relationships.create(followed_id: customer_id)
