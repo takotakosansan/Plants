@@ -20,9 +20,8 @@
       </tr>
       <tr>
        <th>
-        タグ:<% @post.tags.each do |tag| %>
-              <%= tag.name %>
-            <% end %>
+        タグ:<% @post_tags.each do |tag| %>
+             <%=tag.name%><%="(#{tag.posts.count})" %><% end %>
        </th>
       </tr>
       <tr>
