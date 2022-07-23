@@ -11,6 +11,8 @@ class Post < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   
+  enum status: { public: 0, private: 1 }, _prefix: true
+  
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
   end
