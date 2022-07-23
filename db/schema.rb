@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_20_084248) do
+ActiveRecord::Schema.define(version: 2022_07_23_042715) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 2022_07_20_084248) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "reposts", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_reposts_on_customer_id"
+    t.index ["post_id"], name: "index_reposts_on_post_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -115,4 +124,6 @@ ActiveRecord::Schema.define(version: 2022_07_20_084248) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
+  add_foreign_key "reposts", "customers"
+  add_foreign_key "reposts", "posts"
 end
