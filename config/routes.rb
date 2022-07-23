@@ -3,16 +3,16 @@ Rails.application.routes.draw do
   get 'relationships/followings'
   get 'relationships/followers'
   post '/homes/guest_sign_in', to: 'public/homes#new_guest'
-root to: 'public/homes#top'
-get'about' => 'public/homes#about'
-get "search" => "searches#search"
-delete 'posts/:id' => 'public/posts#destroy', as: 'destroy_post'
-# 顧客用
-# URL /customers/sign_in ...
-devise_for :customers,skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-}
+  root to: 'public/homes#top'
+  get'about' => 'public/homes#about'
+  get "search" => "searches#search"
+  delete 'posts/:id' => 'public/posts#destroy', as: 'destroy_post'
+  # 顧客用
+  # URL /customers/sign_in ...
+  devise_for :customers,skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+   }
 
 # 管理者用
 # URL /admin/sign_in ...
@@ -24,6 +24,8 @@ scope module: :public do
     resource :favorites, only: [:create, :destroy]
     
     resources :post_comments, only: [:create, :destroy]
+    
+    resources :reposts, only: [:create, :destroy]
   end
     resources :customers, only:[:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
