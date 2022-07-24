@@ -47,7 +47,7 @@
       <% end %>
       </table>
     </div>
-    <div class="col-2 rounded mt-4">
+    <div class="col-2 mt-4">
     </div>
     <div class="col-6 rounded mt-4">
       <p>コメント件数：<%= @post.post_comments.count %></p>
@@ -76,6 +76,37 @@
         </tbody>
       </table>
      <%= render "public/post_comments/post_comment" %>
+     <h3>撮影場所</h3>
+<div id='map'></div>
+
+<style>
+#map {
+  height: 400px;
+  width: 400px;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.6587, lng: 139.745},
+    zoom: 10,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: 40.7828, lng:-73.9653},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>
+<br>
+<br>
+
    </div>
   </div>
 </div>
