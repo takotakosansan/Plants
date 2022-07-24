@@ -11,6 +11,7 @@
    <th>説明</th>
    <th>タグ</th>
    <th></th>
+   <th></th>
    </tr>
    </thred>
 <tbody>
@@ -25,6 +26,7 @@
     <td ><%= post.tags.map(&:name).join(', ') %></td>
     <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
    </tr>
+    <td><%= render partial: "public/reposts/repost", locals: {post: post} %></td>
    <% end %>
    </tbody>
   </table>
