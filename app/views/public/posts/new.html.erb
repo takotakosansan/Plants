@@ -33,6 +33,9 @@
             <%= i.text_field :name,class:"form-control", placeholder:",で区切ってください" %>
           <% end %>
   	    </div>
+  	    <div class="input-group mb-3 mt-4">
+          <%= f.text_field :address, class:"form-control", placeholder: "住所をここに" %>
+        </div>
   	    <hr>
   	    <div class="input-group mb-3 mt-4">
           <%= f.radio_button :status, :public %>

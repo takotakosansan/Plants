@@ -76,7 +76,7 @@
         </tbody>
       </table>
      <%= render "public/post_comments/post_comment" %>
-     <h3>撮影場所</h3>
+      <h3>撮影場所</h3>
 <div id='map'></div>
 
 <style>
@@ -91,22 +91,44 @@ let map
 
 function initMap(){
   geocoder = new google.maps.Geocoder()
+  
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.68123620000001, lng:139.7671248},
+    zoom: 10
+  });
+    (function(){
+  var contentString = '住所：<%= @post.address %>';
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.6587, lng: 139.745},
-    zoom: 10,
+  var marker = new google.maps.Marker({
+    position:{lat: <%= @post.latitude %>, lng: <%= @post.longitude %>},
+    map: map,
+    title: contentString
+  });
+  
+  var message = '<div id="content">' +
+    '<div id="siteNotice"></div>' +
+    '<h6 id="firstHeading" class="firstHeading">タイトル：<%= @post.name %></h6>' +
+    '<div id="bodyContent">' +
+    '<p><%== image_tag @post.image %></P>' +
+    '<p>説明：<%== @post.description %></p>' +
+    '<p>住所：<%== @post.address %></p>' +
+    '<p><a href="/posts/<%= @post.id %>">この投稿の詳細ページへ</a></p>' +
+    '</div>' +
+    '</div>';
+  // 各地点の吹き出しを作成
+  infoWindow = new google.maps.InfoWindow({
+      // 吹き出しの内容
+    content: message
+  });
+  marker.addListener('mouseover', function () {
+    infoWindow.open(map, marker);
   });
 
-  marker = new google.maps.Marker({
-    position:  {lat: 40.7828, lng:-73.9653},
-    map: map
-  });
+  })();
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>
-<br>
-<br>
-
+ 
    </div>
   </div>
 </div>
