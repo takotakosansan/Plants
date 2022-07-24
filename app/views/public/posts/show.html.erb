@@ -91,14 +91,20 @@ let map
 
 function initMap(){
   geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.6587, lng: 139.745},
-    zoom: 10,
+  var test ={lat: <%= @post.latitude %>, lng: <%= @post.longitude %>};
+  
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: test,
+    zoom: 10
   });
 
-  marker = new google.maps.Marker({
-    position:  {lat: 40.7828, lng:-73.9653},
+  var contentString = '住所：<%= @post.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+  var marker = new google.maps.Marker({
+    position: test,
     map: map
   });
 }
