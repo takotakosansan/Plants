@@ -1,0 +1,99 @@
+ <div class = "container-fluid mx-4 mt-4" >
+  <div class = "row" >
+   <div class = "col-8" >
+   <% @tag_list.each do |list|%>
+   <% if list.posts.count >= 1 then %>
+    <%= link_to list.name, posts_path(tag_id: list.id) %>
+    <%="(#{list.posts.count})" %><% end %>
+   <% end %>
+  <table class="table">
+  <thred>
+   <tr>
+   <th>投稿画像</th>
+   <th>投稿者</th>
+   <th>タイトル</th>
+   <th>説明</th>
+   <th>タグ</th>
+   <th></th>
+   <th></th>
+   </tr>
+   </thred>
+<tbody>
+ <% @posts.each do |post| %>
+ <% if post.status_public? %>
+   <tr>
+    <td><%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image(100,100) %>
+    <% end %></td>
+    <td><%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
+    <td><%= post.name %></td>
+    <td><%= post.description %></td>
+    <td ><%= post.tags.map(&:name).join(', ') %></td>
+    <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
+    <td><%= render partial: "public/reposts/repost", locals: {post: post} %></td>
+   </tr>
+ <% end %>
+ <% end %>
+   </tbody>
+  </table>
+  <%= paginate @posts %>
+  </div>
+  <div class = col-4 >
+   <h3>撮影場所</h3>
+<div id='map'></div>
+
+<style>
+#map {
+  height: 400px;
+  width: 400px;
+}
+</style>
+
+<script>
+let map
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+  
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 35.68123620000001, lng:139.7671248},
+    zoom: 10
+  });
+<% @posts.where.not(latitude: nil).each do |m| %>
+    (function(){
+  var contentString = '住所：<%= m.address %>';
+
+  var marker = new google.maps.Marker({
+    position:{lat: <%= m.latitude %>, lng: <%= m.longitude %>},
+    map: map,
+    title: contentString
+  });
+  
+  var message = '<div id="content">' +
+    '<div id="siteNotice"></div>' +
+    '<h6 id="firstHeading" class="firstHeading">タイトル：<%= m.name %></h6>' +
+    '<div id="bodyContent">' +
+    '<p><%== image_tag m.image %></P>' +
+    '<p>説明：<%== m.description %></p>' +
+    '<p>住所：<%== m.address %></p>' +
+    '<p><a href="/posts/<%= m.id %>">この投稿の詳細ページへ</a></p>' +
+    '</div>' +
+    '</div>';
+  // 各地点の吹き出しを作成
+  infoWindow = new google.maps.InfoWindow({
+      // 吹き出しの内容
+    content: message
+  });
+  marker.addListener('mouseover', function () {
+    infoWindow.open(map, marker);
+  });
+
+  })();
+  <% end %>
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>
+  </div>
+ </div>
+</div>
+

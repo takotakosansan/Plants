@@ -1,0 +1,25 @@
+<div class = "container">
+<h2>検索結果</h2>
+<table class="table table-hover table-inverse">
+  <!--検索対象モデルがCustomerの時 -->
+  <% if @range == "Customer" %>
+    <tbody>
+      <% @customers.each do |customers| %>
+        <tr>
+          <td>ユーザー名：：<%= customers.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <!--検索対象モデルがCustomerではない時(= 検索対象モデルがPostの時) -->
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>投稿タイトル：<%= post.name %></td>
+          <td>説明：<%= post.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
+</div>

@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h4><%= @customer.name %>さんの会員詳細</h4>
+  <div class="row no-gutters">
+    <div class="col-6 rounded mt-4">
+<table>
+  <tr>
+    <td>会員ID</td>
+    <td><%= @customer.id %></td>
+  </tr>
+  <tr>
+    <td>氏名</td>
+    <td><%= @customer.name %></td>
+  </tr>
+  <tr>
+    <td>メールアドレス</td>
+    <td><%= @customer.email %></td>
+  </tr>
+  <tr>
+    <td>会員ステータス</td>
+      <% if @customer.status==true %>
+    <td>有効</td>
+      <% else %>
+    <td>退会</td>
+      <% end %>
+  </tr>
+</table>
+</div>
+<div class="col-6 rounded mt-4">
+<%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-success'%>
+</div>
+</div>
+</div>
