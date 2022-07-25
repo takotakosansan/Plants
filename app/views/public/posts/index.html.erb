@@ -22,7 +22,7 @@
  <% @posts.each do |post| %>
  <% if post.status_public? %>
    <tr>
-    <td><%= link_to post_path(post.id) do %>
+    <td><%= link_to post_path(post.id), data: {"turbolinks" => false} do %>
       <%= image_tag post.get_image(100,100) %>
     <% end %></td>
     <td><%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
