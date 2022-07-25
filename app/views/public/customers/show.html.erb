@@ -17,8 +17,8 @@
    </tr>
    <tr>
     <th><%= image_tag @customer.get_profile_image(200,200) %></th>
-    <% if @customer == current_customer && @customer.name != "guest" %>
    </tr>
+    <% if @customer == current_customer && @customer.name != "guest" %>
    <tr>
     <th class = mt-4><%= link_to "プロフィール編集", edit_customer_path %></th>
    </tr>
