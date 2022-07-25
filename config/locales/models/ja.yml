@@ -13,3 +13,7 @@ ja:
       customer: 会員
       customer:
         name: 名前
+        email: eメール
+        password: パスワード
+        encrypted_password: 確認用パスワード
+        
