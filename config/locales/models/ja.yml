@@ -8,8 +8,13 @@ ja:
       post:
         name: タイトル
         description: 説明
+        address: 住所
       post_comment:
         comment: コメント
       customer: 会員
       customer:
         name: 名前
+        email: eメール
+        password: パスワード
+        encrypted_password: 確認用パスワード
+        

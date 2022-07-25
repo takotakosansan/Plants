@@ -14,9 +14,11 @@
     <header class="bg-dark shadow-sm">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <a class="navbar-brand p-3" href="/">
-            <%= image_tag('logo.png.jpg', size: "150x100") %>
-          </a>
+          <li class="navbar-brand p-3">
+              <%= link_to root_path, class: 'nav-link text-light' do  %>
+                <i class="fas fa-leaf"></i>Plants
+              <% end %>
+            </li>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
