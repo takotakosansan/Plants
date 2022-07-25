@@ -1,9 +1,10 @@
 class Public::RepostsController < ApplicationController
   before_action :set_post
+  before_action :ensure_guest_customer, only: [:create]
 
   def create  # リポストボタンを押下すると、押したユーザと押した投稿のIDよりrepostsテーブルに登録する
     if Repost.find_by(customer_id: current_customer.id, post_id: @post.id)
-      redirect_to root_path, alert: '既にリポスト済みです'
+      redirect_to posts_path(@post), alert: '既にリポスト済みです'
     else
       @repost = Repost.create(customer_id: current_customer.id, post_id: @post.id)
     end
@@ -25,4 +26,11 @@ class Public::RepostsController < ApplicationController
       redirect_to root_path, alert: '該当の投稿が見つかりません'
     end
   end
+  
+  def ensure_guest_customer
+    @customer = current_customer
+    if @customer.name == "guest"
+      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはリポスト機能を利用できません。'
+    end
+  end  
 end
