@@ -62,7 +62,7 @@
           </tr>
         </thred>
         <tbody>
-          <% @post.post_comments.each do |post_comment| %>
+          <% @comment.each do |post_comment| %>
             <tr>
               <td><%= image_tag post_comment.customer.get_profile_image(50,50) %></td>
               <td><%= post_comment.customer.name %></td>
@@ -75,6 +75,7 @@
           <% end %>
         </tbody>
       </table>
+     <%= paginate @comment %> 
      <%= render "public/post_comments/post_comment" %>
       <h3>撮影場所</h3>
 <div id='map'></div>
@@ -128,7 +129,8 @@ function initMap(){
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>
- 
+    <br>
+ <br>
    </div>
   </div>
 </div>

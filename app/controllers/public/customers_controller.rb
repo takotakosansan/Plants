@@ -4,7 +4,7 @@ class Public::CustomersController < ApplicationController
   def show
     post_ids = @customer.posts_with_reposts.ids
     current_customer_post_ids = @customer.posts.ids
-    @posts = Post.where(id: (post_ids | current_customer_post_ids))
+    @posts = Post.where(id: (post_ids | current_customer_post_ids)).page(params[:page]).per(4)
   end
   
   def edit
