@@ -12,8 +12,8 @@ class Post < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
-  validates :name, presence: true
-  validates :description, presence: true
+  validates :name, presence: true,length: { maximum: 20}
+  validates :description, presence: true,length: { maximum: 100}
   validates :address, presence: true
 
   enum status: { public: 0, private: 1 }, _prefix: true
