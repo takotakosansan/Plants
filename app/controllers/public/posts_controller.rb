@@ -39,6 +39,7 @@ class Public::PostsController < ApplicationController
     comment = current_customer.post_comments.new
     @error_comment = comment
     @post_tags = @post.tags
+    @comment = @post.post_comments.page(params[:page]).per(3)
   end
 
   def edit
