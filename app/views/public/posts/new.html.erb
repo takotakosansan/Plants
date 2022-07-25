@@ -38,10 +38,12 @@
         </div>
   	    <hr>
   	    <div class="input-group mb-3 mt-4">
+  	      <div>
           <%= f.radio_button :status, :public %>
           <label for="post_status_public">公開</label>
           <%= f.radio_button :status, :private %>
           <label for="post_status_private">非公開</label>
+          </div>
         </div>
         <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
       <% end %>

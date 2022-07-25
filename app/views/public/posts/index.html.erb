@@ -1,9 +1,11 @@
- <div class = container >
-  <div class = row >
-   <div class = col-8 >
+ <div class = "container-fluid mx-4 mt-4" >
+  <div class = "row" >
+   <div class = "col-8" >
    <% @tag_list.each do |list|%>
+   <% if list.posts.count >= 1 then %>
     <%= link_to list.name, posts_path(tag_id: list.id) %>
     <%="(#{list.posts.count})" %><% end %>
+   <% end %>
   <table class="table">
   <thred>
    <tr>
@@ -23,9 +25,9 @@
     <td><%= link_to post_path(post.id) do %>
       <%= image_tag post.get_image(100,100) %>
     <% end %></td>
-    <td>投稿者：<%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
-    <td>タイトル：<%= post.name %></td>
-    <td>説明：<%= post.description %></td>
+    <td><%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
+    <td><%= post.name %></td>
+    <td><%= post.description %></td>
     <td ><%= post.tags.map(&:name).join(', ') %></td>
     <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
     <td><%= render partial: "public/reposts/repost", locals: {post: post} %></td>

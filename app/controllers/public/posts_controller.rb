@@ -18,7 +18,7 @@ class Public::PostsController < ApplicationController
     if @post.save
        @post.save_tag(tag_list)
     # 4. トップ画面へリダイレクト
-    redirect_to posts_path
+    redirect_to post_path(@post.id)
     else
     render :new
     end
@@ -53,7 +53,7 @@ class Public::PostsController < ApplicationController
     tag_list=params[:post][:tags][:name].split(',')
     if @post.update(post_params)
        @post.save_tag(tag_list)
-       redirect_to post_path(@post.id),notice:'投稿完了しました:)'
+       redirect_to post_path(@post.id),notice:'投稿内容を変更しました:)'
     else
       render:edit
     end

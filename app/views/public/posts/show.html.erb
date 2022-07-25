@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="notice mt-3"><%= notice %></div>
   <div class="row no-gutters">
     <div class="col-4 rounded mt-4">
       <table class = 'table table-hover table-bordered caption-top'>
@@ -19,6 +20,9 @@
        <th>投稿者：<%= @post.customer.name %></th>
       </tr>
       <tr>
+       <th>撮影場所：<%= @post.address %></th>
+      </tr>
+      <tr>
        <th>
         タグ:<% @post_tags.each do |tag| %>
              <%=tag.name%><%="(#{tag.posts.count})" %><% end %>
@@ -29,9 +33,10 @@
       </tr>
       <% if @post.customer == current_customer %>
       <tr>
-       <th><%= link_to "削除", post_path(@post), method: :delete %>
-            <% end %></th>
+       <th><%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-danger" %>
+           <%= link_to "編集", edit_post_path(@post), class: "btn btn-primary"  %></th>
       </tr>
+      <% end %>
       <% if @post.favorited_by?(current_customer) %>
       <tr>
        <th><%= link_to post_favorites_path(@post), method: :delete do %>
@@ -78,6 +83,8 @@
      <%= paginate @comment %> 
      <%= render "public/post_comments/post_comment" %>
       <h3>撮影場所</h3>
+      <h6>※緯度経度が住所から取得されない場合は、</h6>
+      <h6>　地図が表示されません。</h6>
 <div id='map'></div>
 
 <style>
@@ -94,7 +101,7 @@ function initMap(){
   geocoder = new google.maps.Geocoder()
   
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.68123620000001, lng:139.7671248},
+    center: {lat: <%= @post.latitude %>, lng: <%= @post.longitude %>},
     zoom: 10
   });
     (function(){

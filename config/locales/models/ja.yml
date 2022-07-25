@@ -8,6 +8,7 @@ ja:
       post:
         name: タイトル
         description: 説明
+        address: 住所
       post_comment:
         comment: コメント
       customer: 会員
