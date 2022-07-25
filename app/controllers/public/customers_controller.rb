@@ -16,7 +16,7 @@ class Public::CustomersController < ApplicationController
   def update
     @posts = @customer.posts  
     if @customer.update(customer_params)
-     redirect_to customer_path(current_customer.id)
+     redirect_to customer_path(current_customer.id),notice:'ユーザー情報を変更しました:)'
     else
      render :edit
     end
@@ -25,6 +25,17 @@ class Public::CustomersController < ApplicationController
   def favorites
     favorites= Favorite.where(customer_id: @customer.id).pluck(:post_id)
     @favorite_posts = Post.find(favorites)
+  end
+  
+  def bye
+    @customers = Customer.find(params[:id])
+  end
+  
+  def adios
+    @customer = current_customer
+    @customer.update(status: false)
+    reset_session
+    redirect_to root_path
   end
   
   private

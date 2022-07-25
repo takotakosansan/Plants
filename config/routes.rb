@@ -22,9 +22,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 scope module: :public do
     resources :posts, only:[:new, :index, :show, :edit, :create, :update] do
     resource :favorites, only: [:create, :destroy]
-    
     resources :post_comments, only: [:create, :destroy]
-    
     resources :reposts, only: [:create, :destroy]
   end
     resources :customers, only:[:index, :show, :edit, :update] do
