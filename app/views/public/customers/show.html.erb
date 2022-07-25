@@ -17,10 +17,12 @@
    </tr>
    <tr>
     <th><%= image_tag @customer.get_profile_image(200,200) %></th>
+    <% if @customer == current_customer && @customer.name != "guest" %>
    </tr>
    <tr>
     <th class = mt-4><%= link_to "プロフィール編集", edit_customer_path %></th>
    </tr>
+   <% end %>
    <tr>
     <th><%=link_to"フォロー一覧",customer_followings_path(@customer), class: 'btn btn-success' %>
     <%=link_to"フォロワー一覧",customer_followers_path(@customer), class: 'btn btn-primary' %></th>

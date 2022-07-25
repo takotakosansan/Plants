@@ -20,8 +20,8 @@ class Customer < ApplicationRecord
   has_one_attached :profile_image
   
   validates :email, presence: true
-  validates :encrypted_password, presence: true
-  validates :name, presence: true
+  validates :password, presence: true,length: { maximum: 16}
+  validates :name, presence: true,length: { maximum: 8 } 
          
   def self.looks(search, word)
     if search == "perfect_match"
