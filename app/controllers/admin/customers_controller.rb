@@ -1,10 +1,14 @@
 class Admin::CustomersController < ApplicationController
+  before_action :authenticate_admin!
   def index
-    @customers = Customer.all
+    @customers = Customer.page(params[:page])
   end
 
   def show
     @customer = Customer.find(params[:id])
+    post_ids = @customer.posts_with_reposts.ids
+    current_customer_post_ids = @customer.posts.ids
+    @posts = Post.where(id: (post_ids | current_customer_post_ids)).page(params[:page]).per(4)
   end
 
   def edit
