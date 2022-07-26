@@ -1,32 +1,44 @@
-<div class="container mt-5">
-  <h4><%= @customer.name %>さんの会員詳細</h4>
+<div class="container-fluid mx-4">
+  <div class="notice mt-3"><%= notice %>
+  </div>
   <div class="row no-gutters">
-    <div class="col-6 rounded mt-4">
-<table>
-  <tr>
-    <td>会員ID</td>
-    <td><%= @customer.id %></td>
-  </tr>
-  <tr>
-    <td>氏名</td>
-    <td><%= @customer.name %></td>
-  </tr>
-  <tr>
-    <td>メールアドレス</td>
-    <td><%= @customer.email %></td>
-  </tr>
-  <tr>
-    <td>会員ステータス</td>
-      <% if @customer.status==true %>
-    <td>有効</td>
-      <% else %>
-    <td>退会</td>
-      <% end %>
-  </tr>
-</table>
+    <div class="col-2 rounded mt-4">
+     <div class="table-responsive">
+    <!-- ユーザーの詳細 -->
+    <table class = 'table table-hover table-bordered caption-top'>
+      <caption>ユーザー情報</caption>
+      <tr>
+        <th class = "table-active">名前：<%= @customer.name %></th>
+      </tr>
+      <tr>
+        <th>フォロー数: <%= @customer.followings.count %></th>
+      </tr>
+      <tr>
+        <th>フォロワー数: <%= @customer.followers.count %></th>
+      </tr>
+      <tr>
+        <th><%= image_tag @customer.get_profile_image(200,200) %></th>
+      </tr>
+      <tr>
+        <th class = mt-4><%= link_to "情報編集", edit_admin_customer_path %></th>
+      </tr>
+      <tr>
+        <th>会員ステータス：
+          <% if @customer.status==true %>
+        　　有効
+          <% else %>
+        　　退会
+          <% end %></th>
+      </tr>
+    </table>
+    </div>
+  </div>
+  <div class="col-10">
+  <!-- ユーザーの投稿一覧 -->
+  <p><%= render "admin/posts/post" %></p>
+  </div>
 </div>
-<div class="col-6 rounded mt-4">
-<%= link_to "編集する", edit_admin_customer_path(@customer.id), class: 'btn btn-success'%>
-</div>
-</div>
-</div>
+
+
+
+

@@ -1,32 +1,33 @@
 <div class =container>
-<h4>会員一覧</h4>
-
-<table class="table">
-  <tr>
-    <thead>
-      <th>会員ID</th>
-      <th>氏名</th>
-      <th>メールアドレス</th>
-      <th>ステータス</th>
-    </thead>
-  </tr>
-  <% @customers.each do |customer| %>
-  <tr>
-    <tbody>
-      <td><%= customer.id %></td>
-      <td>
-        <%= link_to admin_customer_path(customer.id) do %>
-          <%= customer.name %>
-          <% end %>
-      </td>
-      <td><%= customer.email %></td>
-      <% if customer.status == true %>
-        <td>有効</td>
-      <% else %>
-        <td>退会</td>
-      <% end %>
-    </tbody>
-  </tr>
-  <% end %>
-</table>
+  <h4>会員一覧</h4>
+  
+  <table class="table">
+    <tr>
+      <thead>
+        <th>会員ID</th>
+        <th>氏名</th>
+        <th>メールアドレス</th>
+        <th>ステータス</th>
+      </thead>
+    </tr>
+    <% @customers.each do |customer| %>
+    <tr>
+      <tbody>
+        <td><%= customer.id %></td>
+        <td>
+          <%= link_to admin_customer_path(customer.id) do %>
+            <%= customer.name %>
+            <% end %>
+        </td>
+        <td><%= customer.email %></td>
+        <% if customer.status == true %>
+          <td>有効</td>
+        <% else %>
+          <td>退会</td>
+        <% end %>
+      </tbody>
+    </tr>
+    <% end %>
+  </table>
+   <%= paginate @customers %>
 </div>
