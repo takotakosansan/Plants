@@ -7,51 +7,54 @@ class Public::CustomersController < ApplicationController
     current_customer_post_ids = @customer.posts.ids
     @posts = Post.where(id: (post_ids | current_customer_post_ids)).page(params[:page]).per(4)
   end
-  
+
   def edit
   end
-  
+
   def index
-  @customer = Customer.page(params[:page])
+    @customer = Customer.page(params[:page])
   end
+
   def update
-    @posts = @customer.posts  
+    @posts = @customer.posts
     if @customer.update(customer_params)
-     redirect_to customer_path(current_customer.id),notice:'ユーザー情報を変更しました:)'
+      redirect_to customer_path(current_customer.id), notice: 'ユーザー情報を変更しました:)'
     else
-     render :edit
+      render :edit
     end
   end
-  
+
   def favorites
-    favorites= Favorite.where(customer_id: @customer.id).pluck(:post_id)
+    favorites = Favorite.where(customer_id: @customer.id).pluck(:post_id)
     @favorite_posts = Post.find(favorites)
   end
-  
+
   def bye
     @customers = Customer.find(params[:id])
   end
-  
+
   def adios
     @customer = current_customer
     @customer.update(status: false)
     reset_session
+    flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
     redirect_to root_path
   end
-  
+
   private
 
   def customer_params
     params.require(:customer).permit(:name, :profile_image)
   end
+
   def set_customer
     @customer = Customer.find(params[:id])
-  end 
-  
+  end
+
   def ensure_guest_customer
     @customer = Customer.find(params[:id])
     if @customer.name == "guest"
-      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      redirect_to customer_path(current_customer), notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
-  end  
+  end
 end

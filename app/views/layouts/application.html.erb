@@ -55,16 +55,16 @@
             <% elsif admin_signed_in? %>
 
           <!-- 管理者がログインしている時 -->
-          <li class="nav-item mx-sm-1">
-            <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light', data: {"turbolinks" => false} do %>
-              <i class="fas fa-home"></i> ログアウト
-            <% end %>
-          </li>
-          <li class="nav-item mx-sm-1">
-            <%= link_to admin_customers_path, class: 'nav-link text-light', data: {"turbolinks" => false} do  %>
-              <i class="fas fa-users"></i> 会員一覧
-            <% end %>
-          </li>
+            <li class="nav-item mx-sm-1">
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light', data: {"turbolinks" => false} do %>
+                <i class="fas fa-home"></i> ログアウト
+              <% end %>
+            </li>
+            <li class="nav-item mx-sm-1">
+              <%= link_to admin_customers_path, class: 'nav-link text-light', data: {"turbolinks" => false} do  %>
+                <i class="fas fa-users"></i> 会員一覧
+              <% end %>
+            </li>
 
             <% else %>
             <li class="nav-item mx-sm-1">
@@ -93,12 +93,12 @@
             <p>植物を通して皆と繋がるSNS</p>
             <ul class="p-0 list-unstyled">
               <li>
-                <a href="" title="About" class="text-white-50">このサイトについて</a>
+                <a href="/about" title="About" class="text-white-50">このサイトについて</a>
               </li>
             </ul>
           </div>
           <div class="col-md-8">
-             <%= render "layouts/search" %>
+            <%= render "layouts/search" %>
           </div>
         </div>
       </div>
