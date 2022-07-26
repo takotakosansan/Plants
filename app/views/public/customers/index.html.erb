@@ -1,22 +1,22 @@
 <div class =container>
-<table class="table">
-  <thred>
-   <tr>
-   <th>プロフィール画像</th>
-   <th>名前</th>
-   <th>会員ID</th>
-   </tr>
-   </thred>
-   <tbody>
-     <% @customer.each do |customer| %>
+  <table class="table">
+    <thred>
       <tr>
-        <td><%= link_to customer_path(customer.id) do %>
-            <%= image_tag customer.get_profile_image(80,80)%><% end %></td>
-        <td><%= customer.name %></td>
-        <td><%= customer.id %></td>
+        <th>プロフィール画像</th>
+        <th>名前</th>
+        <th>会員ID</th>
       </tr>
-     <% end %>
+    </thred>
+    <tbody>
+      <% @customer.each do |customer| %>
+        <tr>
+          <td><%= link_to customer_path(customer.id) do %>
+          <%= image_tag customer.get_profile_image(80,80)%><% end %></td>
+          <td><%= customer.name %></td>
+          <td><%= customer.id %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
-  <%= paginate @customer %>
+<%= paginate @customer %>
 </div>

@@ -1,40 +1,46 @@
 <div class="container-fluid mx-4">
- <div class="notice mt-3"><%= notice %></div>
+  <div class="notice mt-3"><%= notice %>
+  </div>
   <div class="row no-gutters">
-   <div class="col-2 rounded mt-4">
+    <div class="col-2 rounded mt-4">
      <div class="table-responsive">
-  <!-- ユーザーの詳細 -->
-  <table class = 'table table-hover table-bordered caption-top'>
-    <caption>ユーザー情報</caption>
-   <tr>
-     <th class = "table-active">名前：<%= @customer.name %></th>
-   </tr>
-   <tr>
-    <th>フォロー数: <%= @customer.followings.count %></th>
-   </tr>
-   <tr>
-    <th>フォロワー数: <%= @customer.followers.count %></th>
-   </tr>
-   <tr>
-    <th><%= image_tag @customer.get_profile_image(200,200) %></th>
-   </tr>
-    <% if @customer == current_customer && @customer.name != "guest" %>
-   <tr>
-    <th class = mt-4><%= link_to "プロフィール編集", edit_customer_path %></th>
-   </tr>
-   <% end %>
-   <tr>
-    <th><%=link_to"フォロー一覧",customer_followings_path(@customer), class: 'btn btn-success' %>
-    <%=link_to"フォロワー一覧",customer_followers_path(@customer), class: 'btn btn-primary' %></th>
-   </tr>
-   <tr>
-    <th><%=link_to"お気に入り記事",favorites_customer_path(@customer) %></th>
-   </tr>
-   <tr>
-    <th><%= render "public/relationships/btn_follow" %></th>
-   </tr>
-  </table>
-   </div>
+    <!-- ユーザーの詳細 -->
+    <table class = 'table table-hover table-bordered caption-top'>
+      <caption>ユーザー情報</caption>
+      <tr>
+        <th class = "table-active">名前：<%= @customer.name %></th>
+      </tr>
+      <tr>
+        <th>フォロー数: <%= @customer.followings.count %></th>
+      </tr>
+      <tr>
+        <th>フォロワー数: <%= @customer.followers.count %></th>
+      </tr>
+      <tr>
+        <th><%= image_tag @customer.get_profile_image(200,200) %></th>
+      </tr>
+      <% if @customer == current_customer && @customer.name != "guest" %>
+      <tr>
+        <th class = mt-4><%= link_to "プロフィール編集", edit_customer_path %></th>
+      </tr>
+      <% end %>
+      <tr>
+        <th><%=link_to"フォロー一覧",customer_followings_path(@customer), class: 'btn btn-success' %>
+        <%=link_to"フォロワー一覧",customer_followers_path(@customer), class: 'btn btn-primary' %></th>
+      </tr>
+      <tr>
+        <th><%=link_to"お気に入り記事",favorites_customer_path(@customer) %></th>
+      </tr>
+      <tr>
+        <th><%= render "public/relationships/btn_follow" %></th>
+      </tr>
+       <% if @customer == current_customer && @customer.name != "guest" %>
+      <tr>
+        <th><%= link_to "退会", bye_path, class: 'btn btn-danger' %></th>
+      </tr>
+      <% end %>
+    </table>
+    </div>
   </div>
   <div class="col-10">
   <!-- ユーザーの投稿一覧 -->

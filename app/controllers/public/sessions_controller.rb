@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :reject_customer, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -24,4 +25,19 @@ class Public::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  protected
+
+  # 会員の論理削除のための記述。退会後は、同じアカウントでは利用できない。
+  def reject_customer
+    @customer = Customer.find_by(name: params[:customer][:name])
+    if @customerr
+      if @customerr.valid_password?(params[:customer][:password]) && (@customer.active_for_authentication? == false)
+        flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
+        redirect_to new_customer_registration
+      else
+        flash[:notice] = "項目を入力してください"
+      end
+    end
+  end
 end

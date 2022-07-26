@@ -22,6 +22,9 @@
             </div>
             <%= f.email_field :email, autofocus: true, class:"form-control", id:"inputEmail", placeholder:"メールアドレス" %>
           </div>
+          <div class="input-group my-3">
+            <%= f.file_field :profile_image, placeholder: "プロフィール画像", class: "w-100" %>
+          </div>  
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fas fa-lock"></i></span>

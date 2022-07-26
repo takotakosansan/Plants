@@ -10,7 +10,7 @@ class Public::RepostsController < ApplicationController
     end
   end
 
-  def destroy  # 既にリポストした投稿のリポストボタンを再度押下すると、リポストを取り消す（=テーブルからデータを削除する）
+  def destroy # 既にリポストした投稿のリポストボタンを再度押下すると、リポストを取り消す（=テーブルからデータを削除する）
     @repost = current_customer.reposts.find_by(post_id: @post.id)
     if @repost.present?
       @repost.destroy
@@ -20,17 +20,18 @@ class Public::RepostsController < ApplicationController
   end
 
   private
+
   def set_post  # リポストボタンを押した投稿を特定する
     @post = Post.find(params[:post_id])
     if @post.nil?
       redirect_to root_path, alert: '該当の投稿が見つかりません'
     end
   end
-  
+
   def ensure_guest_customer
     @customer = current_customer
     if @customer.name == "guest"
-      redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはリポスト機能を利用できません。'
+      redirect_to customer_path(current_customer), notice: 'ゲストユーザーはリポスト機能を利用できません。'
     end
-  end  
+  end
 end
