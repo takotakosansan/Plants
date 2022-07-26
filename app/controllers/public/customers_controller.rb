@@ -54,4 +54,4 @@ class Public::CustomersController < ApplicationController
       redirect_to customer_path(current_customer) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end  
-  end
+end
