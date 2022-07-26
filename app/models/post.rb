@@ -1,5 +1,4 @@
 class Post < ApplicationRecord
-
   belongs_to :customer
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -8,12 +7,12 @@ class Post < ApplicationRecord
   # accepts_nested_attributes_for :tags
   has_many :reposts, dependent: :destroy
   has_one_attached :image
-  
+
   geocoded_by :address
   after_validation :geocode, if: :address_changed?
 
-  validates :name, presence: true,length: { maximum: 20}
-  validates :description, presence: true,length: { maximum: 100}
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :description, presence: true, length: { maximum: 100 }
   validates :address, presence: true
 
   enum status: { public: 0, private: 1 }, _prefix: true
@@ -23,16 +22,16 @@ class Post < ApplicationRecord
   end
 
   def get_image(width, height)
-   unless image.attached?
+    unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-   end
-   image.variant(resize_to_limit: [width, height]).processed
+    end
+    image.variant(resize_to_limit: [width, height]).processed
   end
 
   def save_tag(sent_tags)
-  # タグが存在していれば、タグの名前を配列として全て取得
-    current_tags = self.tags.pluck(:name) unless self.tags.nil?
+    # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = tags.pluck(:name) unless tags.nil?
     # 現在取得したタグから送られてきたタグを除いてoldtagとする
     old_tags = current_tags - sent_tags
     # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
@@ -40,25 +39,25 @@ class Post < ApplicationRecord
 
     # 古いタグを消す
     old_tags.each do |old|
-      self.tags.delete(Tag.find_by(name: old))
+      tags.delete(Tag.find_by(name: old))
     end
 
     # 新しいタグを保存
     new_tags.each do |new|
       new_post_tag = Tag.find_or_create_by(name: new)
-      self.tags << new_post_tag
-   end
+      tags << new_post_tag
+    end
   end
 
   def self.looks(search, word)
     if search == "perfect_match"
-      @post = Post.where("name LIKE?","#{word}")
+      @post = Post.where("name LIKE?", "#{word}")
     elsif search == "forward_match"
-      @post = Post.where("name LIKE?","#{word}%")
+      @post = Post.where("name LIKE?", "#{word}%")
     elsif search == "backward_match"
-      @post = Post.where("name LIKE?","%#{word}")
+      @post = Post.where("name LIKE?", "%#{word}")
     elsif search == "partial_match"
-      @post = Post.where("name LIKE?","%#{word}%")
+      @post = Post.where("name LIKE?", "%#{word}%")
     else
       @post = Post.all
     end
