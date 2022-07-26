@@ -15,7 +15,7 @@ class Public::RepostsController < ApplicationController
     if @repost.present?
       @repost.destroy
     else
-      redirect_to root_path, alert: '既にリポストを取り消し済みです'
+      redirect_to posts_path(@post), alert: '既にリポストを取り消し済みです'
     end
   end
 
