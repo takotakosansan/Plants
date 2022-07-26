@@ -2,10 +2,10 @@
         <h3 class="text-center">本当に退会しますか？</h3>
         <div class = "text-center">
          退会すると、会員登録情報や
-         <br>これまでの購入履歴が閲覧できなくなります。
+         <br>これまでの投稿履歴が閲覧できなくなります。
          <br>退会する場合は、「退会する」をクリックしてください。
          </div>
          <div class = "text-center">
-        <%= link_to "退会しない", customer_path(@cutomer), class: " btn btn-primary", style: "margin-top: 20px;"%>
-        <%= link_to "退会する", customer_adios_path, method: :PATCH,  data: {confirm: "本当に退会してもよろしいですか？"},  class: "btn btn-danger", style: "margin-top: 20px;" %>
+        <%= link_to "退会しない", customer_path(@customer), class: " btn btn-primary", style: "margin-top: 20px;"%>
+        <%= link_to "退会する", adios_path, method: :PATCH,  data: {confirm: "本当に退会してもよろしいですか？"},  class: "btn btn-danger", style: "margin-top: 20px;" %>
         </div>

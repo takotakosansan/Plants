@@ -33,7 +33,7 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
       # t.datetime :locked_at
       # 名前、郵便番号、住所、電話番号、退会情報を追加するカラム
       t.string :name,              null: false, default: ""
-      t.boolean :status,              null: false, default: "t"
+      t.boolean :status,               default: "true"
 
 
       t.timestamps null: false

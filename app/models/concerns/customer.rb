@@ -20,7 +20,7 @@ class Customer < ApplicationRecord
   has_one_attached :profile_image
   
   validates :email, presence: true
-  validates :password, presence: true,length: { maximum: 16}
+  validates :password, presence: true
   validates :name, presence: true,length: { maximum: 8 } 
          
   def self.looks(search, word)
@@ -38,11 +38,11 @@ class Customer < ApplicationRecord
   end
   
   def get_profile_image(width, height)
-    unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
-      profile_image.variant(resize_to_limit: [width, height]).processed
+   unless profile_image.attached?
+    file_path = Rails.root.join('app/assets/images/no_image.jpg')
+    profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+   end
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
   
   def reposted?(post_id)
@@ -60,15 +60,19 @@ class Customer < ApplicationRecord
   end
     
   # フォローしたときの処理
-def follow(customer_id)
-  relationships.create(followed_id: customer_id)
-end
-# フォローを外すときの処理
-def unfollow(customer_id)
-  relationships.find_by(followed_id: customer_id).destroy
-end
-# フォローしているか判定
-def following?(customer)
-  followings.include?(customer)
-end
+  def follow(customer_id)
+    relationships.create(followed_id: customer_id)
+  end
+  # フォローを外すときの処理
+  def unfollow(customer_id)
+    relationships.find_by(followed_id: customer_id).destroy
+  end
+  # フォローしているか判定
+  def following?(customer)
+    followings.include?(customer)
+  end
+  
+  def active_for_authentication?
+    super && (status == true)
+  end
 end

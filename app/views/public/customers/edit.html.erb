@@ -16,13 +16,11 @@
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fas fa-user"></i></span>
             </div>
-            <%= f.text_field :name, autofocus: true, class:"form-control", id:"inputName", placeholder:"名前"%>
+             <%= f.text_field :name, autofocus: true, class:"form-control", id:"inputName", placeholder:"名前"%>
             </div>
-             <div class="input-group my-3">
-            <label>
-            <%= f.file_field :profile_image, placeholder: "プロフィール画像", class: "w-100" %>
-            </label>
-          </div>  
+            <div class="input-group my-3">
+             <%= f.file_field :profile_image, placeholder: "プロフィール画像", class: "w-100" %>
+            </div>  
           <%= f.submit "変更を保存", class:"btn btn-lg btn-block btn-info mt-5" %>
          <% end %>
         </div>

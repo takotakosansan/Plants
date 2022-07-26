@@ -1,6 +1,6 @@
 class Public::HomesController < ApplicationController
   def top
-    @posts = Post.all.order('created_at DESC').limit(4)
+      @posts = Post.all.order('created_at DESC').limit(4)
   end
   def new_guest
       customer = Customer.find_or_create_by!(email: 'guest2@example.com', name: 'guest') do |customer|

@@ -20,17 +20,21 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 scope module: :public do
+    # 退会確認画面
+    get '/customers/:id/bye' => 'customers#bye', as: 'bye'
+    # 論理削除用のルーティング
+    patch '/customers/:id/adios' => 'customers#adios', as: 'adios'
     resources :posts, only:[:new, :index, :show, :edit, :create, :update] do
     resource :favorites, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
     resources :reposts, only: [:create, :destroy]
-  end
+    end
     resources :customers, only:[:index, :show, :edit, :update] do
       resource :relationships, only: [:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
-       member do
-      get :favorites
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+        member do
+        get :favorites
     end
   end
   end
