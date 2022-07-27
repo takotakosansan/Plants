@@ -1,48 +1,48 @@
- <div class = "container-fluid mx-4 mt-4" >
+<div class = "container-fluid mx-4 mt-4" >
   <div class = "row" >
-   <div class = "col-8" >
-   <% @tag_list.each do |list|%>
-   <% if list.posts.count >= 1 then %>
-    <%= link_to list.name, posts_path(tag_id: list.id) %>
-    <%="(#{list.posts.count})" %><% end %>
-   <% end %>
+    <div class = "col-8" >
+      <% @tag_list.each do |list|%>
+        <% if list.posts.count >= 1 then %>
+          <%= link_to list.name, posts_path(tag_id: list.id) %>
+        <%="(#{list.posts.count})" %><% end %>
+      <% end %>
   <table class="table">
-  <thred>
-   <tr>
-   <th>投稿画像</th>
-   <th>投稿者</th>
-   <th>タイトル</th>
-   <th>説明</th>
-   <th>タグ</th>
-   <th></th>
-   <th></th>
-   </tr>
-   </thred>
-<tbody>
- <% @posts.each do |post| %>
- <% if post.status_public? %>
-   <tr>
-    <td><%= link_to post_path(post.id), data: {"turbolinks" => false} do %>
-      <%= image_tag post.get_image(100,100) %>
-    <% end %></td>
-    <td><%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
-    <td><%= post.name %></td>
-    <td><%= post.description %></td>
-    <td ><%= post.tags.map(&:name).join(', ') %></td>
-    <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
-    <% unless post.customer == current_customer %>
-    <td><%= render partial: "public/reposts/repost", locals: {post: post} %></td>
-    <% end %>
-   </tr>
- <% end %>
- <% end %>
-   </tbody>
+    <thred>
+      <tr>
+        <th>投稿画像</th>
+        <th>投稿者</th>
+        <th>タイトル</th>
+        <th>説明</th>
+        <th>タグ</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thred>
+    <tbody>
+      <% @posts.each do |post| %>
+        <% if post.status_public? %>
+          <tr>
+            <td><%= link_to post_path(post.id), data: {"turbolinks" => false} do %>
+              <%= image_tag post.get_image(100,100) %>
+            <% end %></td>
+            <td><%= post.customer.name %><br><% if post.latitude == nil %><span class="badge badge-primary">位置情報なし</span><% end %></td>
+            <td><%= post.name %></td>
+            <td><%= post.description %></td>
+            <td ><%= post.tags.map(&:name).join(', ') %></td>
+            <td><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></td>
+            <% unless post.customer == current_customer %>
+              <td><%= render partial: "public/reposts/repost", locals: {post: post} %></td>
+            <% end %>
+          </tr>
+        <% end %>
+       <% end %>
+    </tbody>
   </table>
   <%= paginate @posts %>
-  </div>
-  <div class = col-4 >
-   <h3>撮影場所</h3>
-<div id='map'></div>
+</div>
+<div class = col-4 >
+  <h3>撮影場所</h3>
+  <div id='map'></div>
 
 <style>
 #map {
@@ -52,7 +52,6 @@
 </style>
 
 <script>
-let map
 
 function initMap(){
   geocoder = new google.maps.Geocoder()
@@ -75,19 +74,22 @@ function initMap(){
     '<div id="siteNotice"></div>' +
     '<h6 id="firstHeading" class="firstHeading">タイトル：<%= m.name %></h6>' +
     '<div id="bodyContent">' +
-    '<p><%== image_tag m.image %></P>' +
-    '<p>説明：<%== m.description %></p>' +
-    '<p>住所：<%== m.address %></p>' +
+    '<p><%= image_tag m.image %></P>' +
+    '<p>説明：<%= m.description %></p>' +
+    '<p>住所：<%= m.address %></p>' +
     '<p><a href="/posts/<%= m.id %>">この投稿の詳細ページへ</a></p>' +
     '</div>' +
     '</div>';
   // 各地点の吹き出しを作成
-  infoWindow = new google.maps.InfoWindow({
+  var infoWindow = new google.maps.InfoWindow({
       // 吹き出しの内容
     content: message
   });
   marker.addListener('mouseover', function () {
     infoWindow.open(map, marker);
+  });
+  marker.addListener('mouseout', function () {
+    infoWindow.close(map, marker);
   });
 
   })();
