@@ -1,47 +1,49 @@
 <div class="card-list-container d-flex flex-wrap mx-2 py-5">
   <% @posts.each_with_index.reverse_each do |post, i| %>
-   <% if post.has_attribute?(:customer_id)  %>
-    <% if post.customer_id.present? %>
-      <% unless post.customer_id != current_customer.id && post.status_private? %>
-  <div class="card w-20 h-40 mx-2 mt-4 shadow-lg" style="width: 18rem;">
-    <%= link_to post_path(post.id) do %>
-      <%= image_tag post.get_image(100,100), class:"card-img-top"; %>
-    <% end %>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-3">
-          <%= image_tag post.customer.get_profile_image(50,50), class:"mt-3 rounded-circle"; %>
-        </div>
-        <div class="col-9">
-          <p class="card-title">
-            <%= link_to(post_path(post.id), class:"text-dark") do %>
-              <strong><i class="far fa-flag"></i><span> <%= post.name %></span></strong>
-            <% end %>
-          </p>
-          <p class="card-text">説明：<%= post.description %></p>
-          <span><i class="fas fa-user"></i> By <%= post.customer.name %> ｜ </span>
-          <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
-          <span><% if post.favorited_by?(current_customer) %>
-                <p>
-                <%= link_to post_favorites_path(post), method: :delete do %>
-                ♥<%= post.favorites.count %> いいね
+    <% if post.has_attribute?(:customer_id)  %>
+      <% if post.customer_id.present? %>
+        <% unless post.customer_id != current_customer.id && post.status_private? %>
+        <div class="card w-20 h-40 mx-2 mt-4 shadow-lg" style="width: 18rem;">
+          <%= link_to post_path(post.id) do %>
+          <%= image_tag post.get_image(100,100), class:"card-img-top"; %>
+          <% end %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3">
+                <%= image_tag post.customer.get_profile_image(50,50), class:"mt-3 rounded-circle"; %>
+              </div>
+              <div class="col-9">
+                <p class="card-title">
+                <%= link_to(post_path(post.id), class:"text-dark") do %>
+                <strong><i class="far fa-flag"></i><span> <%= post.name %></span></strong>
                 <% end %>
                 </p>
+                <p class="card-text">説明：<%= post.description %></p>
+                <span><i class="fas fa-user"></i> By <%= post.customer.name %> ｜ </span>
+                <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
+                <span><% if post.favorited_by?(current_customer) %>
+                  <p>
+                  <%= link_to post_favorites_path(post), method: :delete do %>
+                  ♥<%= post.favorites.count %> いいね
+                  <% end %>
+                  </p>
                 <% else %>
-                <p>
-                <%= link_to post_favorites_path(post), method: :post do %>
-                ♡<%= post.favorites.count %> いいね
-                <% end %>
-                </p>
+                  <p>
+                  <%= link_to post_favorites_path(post), method: :post do %>
+                  ♡<%= post.favorites.count %> いいね
+                  <% end %>
+                  </p>
                 <% end %></span>
                 <%= render partial: "public/reposts/repost", locals: {post: post} %>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-     <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-   <% end %>
   <% end %>
 </div>
+<div>
 <%= paginate @posts %>
+</div>
