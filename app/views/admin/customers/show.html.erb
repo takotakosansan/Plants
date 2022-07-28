@@ -3,39 +3,39 @@
   </div>
   <div class="row no-gutters">
     <div class="col-2 rounded mt-4">
-     <div class="table-responsive">
-    <!-- ユーザーの詳細 -->
-    <table class = 'table table-hover table-bordered caption-top'>
-      <caption>ユーザー情報</caption>
-      <tr>
-        <th class = "table-active">名前：<%= @customer.name %></th>
-      </tr>
-      <tr>
-        <th>フォロー数: <%= @customer.followings.count %></th>
-      </tr>
-      <tr>
-        <th>フォロワー数: <%= @customer.followers.count %></th>
-      </tr>
-      <tr>
-        <th><%= image_tag @customer.get_profile_image(200,200) %></th>
-      </tr>
-      <tr>
-        <th class = mt-4><%= link_to "情報編集", edit_admin_customer_path %></th>
-      </tr>
-      <tr>
-        <th>会員ステータス：
-          <% if @customer.status==true %>
-        　　有効
-          <% else %>
-        　　退会
-          <% end %></th>
-      </tr>
-    </table>
+      <div class="table-responsive">
+        <!-- ユーザーの詳細 -->
+        <table class = 'table table-hover table-bordered caption-top'>
+          <caption>ユーザー情報</caption>
+          <tr>
+            <th class = "table-active">名前：<%= @customer.name %></th>
+          </tr>
+          <tr>
+            <th>フォロー数: <%= @customer.followings.count %></th>
+          </tr>
+          <tr>
+            <th>フォロワー数: <%= @customer.followers.count %></th>
+          </tr>
+          <tr>
+            <th><%= image_tag @customer.get_profile_image(200,200) %></th>
+          </tr>
+          <tr>
+            <th class = mt-4><%= link_to "情報編集", edit_admin_customer_path %></th>
+          </tr>
+          <tr>
+            <th>会員ステータス：
+              <% if @customer.status==true %>
+            　　有効
+              <% else %>
+            　　退会
+              <% end %></th>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-  <div class="col-10">
-  <!-- ユーザーの投稿一覧 -->
-  <p><%= render "admin/posts/post" %></p>
+    <div class="col-10">
+    <!-- ユーザーの投稿一覧 -->
+    <p><%= render "admin/posts/post" %></p>
   </div>
 </div>
 
