@@ -85,6 +85,7 @@ function initMap(){
       // 吹き出しの内容
     content: message
   });
+      // マウスの動きに合わせた反応の仕方
   marker.addListener('mouseover', function () {
     infoWindow.open(map, marker);
   });
@@ -94,7 +95,7 @@ function initMap(){
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV['GOOGLE_API_KEY']%>&callback=initMap" async defer></script>
+    </div>
   </div>
- </div>
 </div>
 
